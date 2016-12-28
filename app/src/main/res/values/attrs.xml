@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SlipButton">
+        <attr name="openBackground" format="reference" />
+        <attr name="closeBackground" format="reference" />
+        <attr name="thumb" format="reference" />
+        <attr name="thumb_true" format="reference" />
+        <attr name="thumb_false" format="reference" />
+    </declare-styleable>
+
+    <style name="Theme" parent="Theme.Base">
+        <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/Theme.AnimationStyle.Fade</item>
+    </style>
+
+    <style name="Theme.Trans" parent="Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/trans</item>
+        <item name="android:windowAnimationStyle">@style/Theme.AnimationStyle.Fade</item>
+    </style>
+
+
+
+</resources>
