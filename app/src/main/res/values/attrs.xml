@@ -20,6 +20,10 @@
         <item name="android:windowAnimationStyle">@style/Theme.AnimationStyle.Fade</item>
     </style>
 
+    <declare-styleable name="MyCustomWidget">
+        <attr name="title" format="string" />
+    </declare-styleable>
+
 
 
 </resources>

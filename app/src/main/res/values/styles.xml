@@ -21,4 +21,7 @@
         <item name="android:activityCloseExitAnimation">@anim/anim_entry_scale_out</item>
     </style>
 
+    <style name="TranslucentTheme" parent="AppTheme">
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
 </resources>
