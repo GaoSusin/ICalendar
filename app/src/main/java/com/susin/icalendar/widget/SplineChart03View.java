@@ -152,8 +152,8 @@ public class SplineChart03View extends BaseChartView {
         barChart.setCategories(barLabels);
         // 数据轴
         barChart.setDataSource(barChartDataset);
-        barChart.getDataAxis().setAxisMax(100);
-        barChart.getDataAxis().setAxisSteps(10);
+        barChart.getDataAxis().setAxisMax(120);
+        barChart.getDataAxis().setAxisSteps(20);
 
         // 隐藏柱形图的横坐标
         barChart.getDataAxis().hide();
@@ -335,7 +335,7 @@ public class SplineChart03View extends BaseChartView {
 
         // 柱形图数据
         dataSeries2.clear();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             dataSeries2.add(newMaxNum);
         }
         BarData barDataA = new BarData("Virtual OPM", dataSeries2, Color.rgb(255, 255, 255));
@@ -415,7 +415,7 @@ public class SplineChart03View extends BaseChartView {
             month = month + 12;
         }
         barLabels.add(month + "月");
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             month = getMonthNext(month);
             barLabels.add(month + "月");
         }

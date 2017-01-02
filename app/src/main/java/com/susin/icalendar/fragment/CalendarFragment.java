@@ -1,6 +1,5 @@
 package com.susin.icalendar.fragment;
 
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +16,6 @@ import java.util.List;
 
 import com.susin.icalendar.R;
 import com.susin.icalendar.TagsAddActivity;
-import com.susin.icalendar.common.Setting;
 import com.susin.icalendar.model.Record;
 import com.susin.icalendar.util.UtilCalculate;
 
@@ -67,6 +64,7 @@ public class CalendarFragment extends MyBaseFragment {
     }
 
     private void initData() {
+        final Date today = new Date();
         c = Calendar.getInstance();
         int year = c.get(java.util.Calendar.YEAR);
         int month =  c.get(java.util.Calendar.MONTH) + 1;
@@ -74,23 +72,39 @@ public class CalendarFragment extends MyBaseFragment {
         String date = year + "-" + month + "-" + day;
 
         // 获取前一天
-        List<Record> records = DataSupport.where("date = ?", UtilCalculate.getYesterday()).find(Record.class);
-        if (records.size() > 0){
-            Record recordYesterday = records.get(0);
-            // 判断昨天是否来姨妈，如果来了今天也得来
-            if ("1".equals(recordYesterday.getMenstruation())){
+        List<Record> yesterdayRecords = DataSupport.where("date = ?", UtilCalculate.getDaysago(today, 1)).find(Record.class);
+        List<Record> sevenDayagoRecords = DataSupport.where("date = ?", UtilCalculate.getDaysago(today, 7)).find(Record.class);
+        if (yesterdayRecords.size() > 0){
+            Record recordYesterday = yesterdayRecords.get(0);
+            if(sevenDayagoRecords.size() == 0){
+                // 判断昨天是否来姨妈，如果来了今天也得来
+                if ("1".equals(recordYesterday.getMenstruation()) ){
 
-                // 查询数据库是否有今天的数据
-                List<Record> recordToday = DataSupport.where("date = ?", date).find(Record.class);
-                boolean isSave = recordToday.size() > 0 ? false : true;
-                // 避免重复存操作
-                if(isSave){
-                    Record record = new Record();
-                    record.setMenstruation("1");
-                    record.setDate(date);
-                    record.save();
+                    // 查询数据库是否有今天的数据
+                    List<Record> recordToday = DataSupport.where("date = ?", date).find(Record.class);
+                    boolean isSave = recordToday.size() > 0 ? false : true;
+                    // 避免重复存操作
+                    if(isSave){
+                        Record record = new Record();
+                        record.setMenstruation("1");
+                        record.setDate(date);
+                        record.save();
+                    }
+                }else if("0".equals(sevenDayagoRecords.get(0).getMenstruation())){
+                    // 查询数据库是否有今天的数据
+                    List<Record> recordToday = DataSupport.where("date = ?", date).find(Record.class);
+                    boolean isSave = recordToday.size() > 0 ? false : true;
+                    // 避免重复存操作
+                    if(isSave){
+                        Record record = new Record();
+                        record.setMenstruation("1");
+                        record.setDate(date);
+                        record.save();
+                    }
                 }
+
             }
+
         }
 
         picker.setDate(year, month);
@@ -102,7 +116,12 @@ public class CalendarFragment extends MyBaseFragment {
         picker.setOnDatePickedListener(new DatePicker.OnDatePickedListener() {
             @Override
             public void onDatePicked(String date) {
-                TagsAddActivity.actionStart(getActivity(), date);
+                if(UtilCalculate.stringToDate(date).after(today)){
+                    showToast("无法记录未来的日子");
+                }else{
+                    TagsAddActivity.actionStart(getActivity(), date);
+                }
+
             }
         });
 

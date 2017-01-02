@@ -13,10 +13,11 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/tv_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="是否来大姨妈"
+            android:text="大姨妈是否来了"
             android:textColor="@color/black"
             android:textSize="18dp"
             android:layout_marginRight="50dp"/>
@@ -35,62 +36,6 @@
 
     </RelativeLayout>
 
-
-    <!--<RelativeLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:padding="10dp">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:text="每天好习惯"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:textSize="18dp"-->
-            <!--android:layout_marginRight="50dp"/>-->
-
-        <!--<com.susin.icalendar.widget.SlipButton-->
-            <!--android:id="@+id/btn_habit"-->
-            <!--android:layout_width="91dp"-->
-            <!--android:layout_height="43dp"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginRight="18dp"-->
-            <!--android:visibility="visible"-->
-            <!--myspace:closeBackground="@drawable/btn_slip_white_bg"-->
-            <!--myspace:openBackground="@drawable/btn_slip_half_bg"-->
-            <!--myspace:thumb="@drawable/btn_slip_half_thumb" />-->
-
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:padding="10dp"-->
-        <!--android:paddingLeft="50dp">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:text="身体状况"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:textSize="18dp"-->
-            <!--android:layout_marginRight="50dp"/>-->
-
-        <!--<EditText-->
-            <!--android:id="@+id/et_health"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_marginRight="18dp"-->
-            <!--android:hint="请输入身体状况"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:textSize="18dp"/>-->
-
-    <!--</RelativeLayout>-->
 
     <Button
         android:id="@+id/btn_save"

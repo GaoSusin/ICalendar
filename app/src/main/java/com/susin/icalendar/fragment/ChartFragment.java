@@ -1,6 +1,10 @@
 package com.susin.icalendar.fragment;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +54,10 @@ public class ChartFragment extends MyBaseFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("action.refreshData");
+        getContext().registerReceiver(mRefreshBroadcastReceiver, intentFilter);
         if (mView == null) {
             mView = inflater.inflate(R.layout.fragment_chart, container, false);
 
@@ -58,6 +66,19 @@ public class ChartFragment extends MyBaseFragment {
         }
         return mView;
     }
+
+    BroadcastReceiver mRefreshBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+
+            if (action.equals("action.refreshData"))
+            {
+                getHisBillDate();
+            }
+        }
+    };
 
     private void initViews() {
         splineChart03View = findView(R.id.spChart);
@@ -108,18 +129,23 @@ public class ChartFragment extends MyBaseFragment {
     private void getHisBillDate() {
 
         c = Calendar.getInstance();
-        int year = c.get(java.util.Calendar.YEAR);
         int[] months = UtilCalculate.getLast6Months();
-        String monthes;
+        String[] monthes = UtilCalculate.getLast6YearMonths();
         double[] arrBill = new double[6];
         for (int i = 0; i < 6; i++) {
 
-            monthes = year + "-" + months[i];
+//            monthes = year + "-" + months[i];
 //            List<Record> datelist = DataSupport.where("date like ? and menstruation = ?", monthes + "%", "true").find(Record.class);
-            List<Record> datelist = DataSupport.where("date like ?", monthes + "%").find(Record.class);
+            List<Record> datelist = DataSupport.where("date like ? and menstruation = ?", monthes[i] + "%", "1").find(Record.class);
             arrBill[5-i] = datelist.size();
         }
 
         initViews(arrBill);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unregisterReceiver(mRefreshBroadcastReceiver);
     }
 }
